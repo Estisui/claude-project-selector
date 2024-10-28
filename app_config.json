@@ -1,1 +1,7 @@
-{"input_folder": "C:/projects/stupor_main/NODE_DESKTOP_STUPOR/src", "output_folder": "C:/Users/Admin/Desktop/Claude/Claude_SD"}
+{
+    "input_folders": [
+        "C:/projects/stupor_main/NODE_DESKTOP_STUPOR/cypress",
+        "C:/projects/stupor_main/NODE_DESKTOP_STUPOR/src"
+    ],
+    "output_folder": "C:/Users/Admin/Desktop/Claude/Claude_SD"
+}

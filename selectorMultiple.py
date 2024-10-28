@@ -68,6 +68,80 @@ class HelperApp(QWidget):
 
         self.setLayout(layout)
 
+        # Apply custom styles
+        self.apply_styles()
+
+    def apply_styles(self):
+        """Apply QSS styles to the app."""
+        qss_styles = '''
+            QWidget {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f3f4f6;
+                margin: 0;
+                padding: 0;
+            }
+
+            QLabel {
+                font-size: 14px;
+                font-weight: 500;
+                color: #4b5563;
+            }
+
+            QLineEdit {
+                padding: 8px 12px;
+                font-size: 14px;
+                border: 1px solid #d1d5db;
+                border-radius: 4px;
+                outline: none;
+            }
+
+            QLineEdit:focus {
+                border-color: #3b82f6;
+            }
+
+            QListWidget {
+                padding: 8px;
+                font-size: 14px;
+                border: 1px solid #d1d5db;
+                border-radius: 4px;
+            }
+
+            QPushButton {
+                padding: 8px 12px;
+                font-size: 14px;
+                font-weight: 500;
+                color: #ffffff;
+                background-color: #3b82f6;
+                border: none;
+                border-radius: 4px;
+            }
+
+            QPushButton:hover {
+                background-color: #2563eb;
+            }
+
+            QPushButton:pressed {
+                background-color: #1d4ed8;
+            }
+
+            QPushButton#browse-button {
+                background-color: #ffffff;
+                color: #4b5563;
+                border: 1px solid #d1d5db;
+            }
+
+            QPushButton#browse-button:hover {
+                background-color: #f3f4f6;
+            }
+
+            QPushButton#save-button {
+                width: 100%;
+                margin-top: 16px;
+            }
+        '''
+        
+        self.setStyleSheet(qss_styles)
+
     def add_input_folder(self):
         folder = QFileDialog.getExistingDirectory(self, 'Select Input Folder')
         if folder:
@@ -84,29 +158,30 @@ class HelperApp(QWidget):
 
     def load_config(self):
         """Load the last used folders from a config file."""
+        
         if os.path.exists(config_file):
-            with open(config_file, 'r') as file:
-                config = json.load(file)
-                input_folders = config.get('input_folders', [])
-                for folder in input_folders:
-                    self.input_folders_list.addItem(folder)
-                self.output_folder_input.setText(config.get('output_folder', ''))
+             with open(config_file, 'r') as file:
+                 config = json.load(file)
+                 input_folders = config.get('input_folders', [])
+                 for folder in input_folders:
+                     self.input_folders_list.addItem(folder)
+                 self.output_folder_input.setText(config.get('output_folder', ''))
 
     def save_config(self):
-        """Save the current input and output folders to a config file."""
-        
-        input_folders = [self.input_folders_list.item(i).text() for i in range(self.input_folders_list.count())]
-        output_folder = self.output_folder_input.text()
+         """Save the current input and output folders to a config file."""
+         
+         input_folders = [self.input_folders_list.item(i).text() for i in range(self.input_folders_list.count())]
+         output_folder = self.output_folder_input.text()
 
-        config = {
+         config = {
              'input_folders': input_folders,
              'output_folder': output_folder
          }
 
-        with open(config_file, 'w') as file:
+         with open(config_file, 'w') as file:
              json.dump(config, file, indent=4)
 
-        print(f"Configuration saved: {config}")
+         print(f"Configuration saved: {config}")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
